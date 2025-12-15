@@ -8,9 +8,13 @@
     "@testing-library/react": "^16.3.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.10.0",
+    "concurrently": "^9.2.1",
+    "nodemon": "^3.1.10",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "react-router-dom": "^7.7.0",
+    "react-hook-form": "^7.68.0",
+    "react-hot-toast": "^2.6.0",
+    "react-router-dom": "^7.10.1",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4"
   },
@@ -18,7 +22,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server": "cd server && npm run dev",
+    "dev": "concurrently -n \"client, server\" -c \"bgBlue, cyan\" \"npm start\" \"npm run server\""
   },
   "eslintConfig": {
     "extends": [

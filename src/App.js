@@ -1,58 +1,29 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
-import HomePage from './pages/HomePage';
-import PostDetailsPage from './pages/PostDetailsPage';
+import { Router, Route, Routes} from 'react-router-dom';
+import Deshboard from './pages/deshboard';
 import CreatePostPage from './pages/CreatePostPage';
+import Login from './pages/login';
+import Signup from './pages/signup';
+import Home from './pages/home';
+import DetailPage from './pages/detailpage';
 
-function Navigation() {
-  const location = useLocation();
-  
-  return (
-    <nav className="bg-gray-800 shadow-lg">
-      <div className="max-w-7xl mx-auto px-4">
-        <div className="flex justify-between h-16">
-          <div className="flex space-x-8">
-            <Link 
-              to="/" 
-              className={`inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors duration-200 ${
-                location.pathname === '/' 
-                  ? 'text-white border-b-2 border-blue-500' 
-                  : 'text-gray-300 hover:text-white hover:border-gray-300'
-              }`}
-            >
-              Home
-            </Link>
-            <Link 
-              to="/create" 
-              className={`inline-flex items-center px-1 pt-1 text-sm font-medium transition-colors duration-200 ${
-                location.pathname === '/create' 
-                  ? 'text-white border-b-2 border-blue-500' 
-                  : 'text-gray-300 hover:text-white hover:border-gray-300'
-              }`}
-            >
-              Create Post
-            </Link>
-          </div>
-        </div>
-      </div>
-    </nav>
-  );
-}
 
 function App() {
   return (
-    <Router>
-      <div className="min-h-screen bg-gray-50">
-        <Navigation />
-        <main className="py-8">
+    <div className="w-screen min-h-screen flex flex-col">
+      <div className="flex-1 flex">
+        <div className="w-full h-full">
           <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/post/:id" element={<PostDetailsPage />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/deshboard" element={<Deshboard />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/post/:id" element={<DetailPage />} />
             <Route path="/create" element={<CreatePostPage />} />
           </Routes>
-        </main>
+        </div>
       </div>
-    </Router>
+    </div>
   );
 }
 
