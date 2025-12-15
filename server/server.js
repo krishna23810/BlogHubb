@@ -40,13 +40,16 @@ app.use("/api/v1/likes", likeRoutes);
 app.use("/api/v1/posts", postRoutes);
 app.use("/api/v1/users", userRoutes);
  
-const server = app.listen(PORT, () => {
-    console.log(`Server is running on port ${process.env.PORT}`);
-});
-
-    
 app.get("/", (request, response) => {
     response.send(`<h1> this is  home page</h1>`);
 });
 
-// module.exports = server;
+// Only start a listener locally; on Vercel we export the app as a handler.
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`Server is running on port ${process.env.PORT || PORT}`);
+    });
+}
+
+module.exports = app;
+
