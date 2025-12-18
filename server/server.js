@@ -15,7 +15,7 @@ const PORT = process.env.PORTS || 3000;
 
 
 app.use(cors({
-    origin: 'https://blog-hubb.vercel.app/',
+    origin: process.env.FRONTEND_URL,
     credentials: true
 }));
 
