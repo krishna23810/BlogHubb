@@ -91,8 +91,11 @@ exports.login = async (req, res) => {
 
         userdata.password = undefined; // Remove password from the user object
         // Set the token in a cookie
+        const NODE_ENV = process.env.NODE_ENV || 'development';
         res.cookie('token', token, {
             httpOnly: true,
+            secure: NODE_ENV === 'production',
+            sameSite: NODE_ENV === 'production' ? 'none' : 'lax',
             maxAge: 1 * 24 * 60 * 60 * 1000 // 1 day
         });
 

@@ -7,9 +7,10 @@ exports.isAuthenticated = async (req, res, next) => {
 
     try {
         // Extract token from cookies, body, or headers
-        const token = (req.cookies && req.cookies.token)
-            || (req.body && req.body.token)
-            || (req.headers.Authorization && req.headers.Authorization.replace('Bearer ', ''));
+        // Normalize token lookup across cookie/body/header (Express lowercases headers)
+        const token = req.cookies?.token
+            || req.body?.token
+            || req.headers.authorization?.replace('Bearer ', '');
 
         // Token not found
         if (!token) {
@@ -30,7 +31,7 @@ exports.isAuthenticated = async (req, res, next) => {
 
         // Check if user still exists in database
         const userdata = await user.findById(decodedToken.id);
-        if (!user) {
+        if (!userdata) {
             return res.status(401).json({
                 success: false,
                 message: 'User not found, please login again'

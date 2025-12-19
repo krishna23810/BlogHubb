@@ -4,6 +4,8 @@ const cookieParser = require('cookie-parser');
 const fileUpload = require('express-fileupload');
 const { uploadImage } = require('./imageUploder');
 const app = express();
+// Needed for secure cookies behind proxies (Vercel/Netlify)
+app.set('trust proxy', 1);
 
 const dbconect = require("./config/dbconnector");
 dbconect();
