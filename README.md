@@ -1,6 +1,11 @@
-# Getting Started with Create React App
+# BlogHubb – Full Stack Blog Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+BlogHubb is a full-stack blogging platform where users can sign up, log in, create posts, like and comment on posts, and browse detailed blog content.  
+This project includes both the **React frontend** and the **Node/Express + MongoDB backend** in a single repository.
+
+> Original inspiration and structure from [BlogHubb](https://github.com/krishna23810/BlogHubb).
+
+---
 
 ## Available Scripts
 
@@ -8,65 +13,232 @@ In the project directory, you can run:
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Starts the React app in development mode at `http://localhost:3000`.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### `npm run server`
 
-### `npm test`
+Runs the backend server in development mode from the `server` folder:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```bash
+cd server && npm run dev
+```
+
+### `npm run dev`
+
+Runs both the **client** and **server** in development using `concurrently`:
+
+- `client`: `npm start`
+- `server`: `npm run server`
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Builds the React app for production to the `build` folder. It bundles React in production mode and optimizes the build for best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### `npm test`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Launches the test runner for the frontend in watch mode.
 
-### `npm run eject`
+You can also run backend tests (if added) from the `server` folder:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+```bash
+cd server
+npm test
+```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Tech Stack
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **Frontend**
+  - React (Create React App)
+  - React Router (`react-router-dom`)
+  - React Hook Form (`react-hook-form`)
+  - Axios (via centralized `apiConnector`)
+  - React Hot Toast
 
-## Learn More
+- **Backend**
+  - Node.js
+  - Express
+  - MongoDB + Mongoose
+  - JWT (`jsonwebtoken`)
+  - Bcrypt (`bcrypt`)
+  - Cloudinary (`cloudinary`)
+  - File upload (`express-fileupload`)
+  - Cookies (`cookie-parser`)
+  - CORS (`cors`)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+---
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Project Structure
 
-### Code Splitting
+```text
+.
+├── public/                 # CRA static assets
+├── src/                    # React frontend source
+│   ├── apiconnector.js     # Axios instance & helper
+│   ├── App.js              # Routes definition
+│   ├── components/
+│   │   └── userSeterForm.jsx
+│   ├── pages/
+│   │   ├── home.jsx
+│   │   ├── deshboard.jsx
+│   │   ├── detailpage.jsx
+│   │   ├── CreatePostPage.jsx
+│   │   ├── login.jsx
+│   │   └── signup.jsx
+│   └── ...
+├── server/                 # Backend API
+│   ├── config/
+│   │   └── dbconnector.js  # Mongo connection
+│   ├── controller/
+│   │   ├── userHandler.js
+│   │   ├── postHandler.js
+│   │   ├── commentHandler.js
+│   │   └── likeHandler.js
+│   ├── middleware/
+│   │   └── auth.js
+│   ├── models/
+│   │   ├── user.js
+│   │   ├── post.js
+│   │   ├── comments.js
+│   │   ├── likes.js
+│   │   └── validation.js
+│   ├── routes/
+│   │   ├── userRoutes.js
+│   │   ├── postRoutes.js
+│   │   ├── commentRoutes.js
+│   │   └── likeRoutes.js
+│   ├── imageUploder.js
+│   ├── server.js
+│   └── vercel.json
+├── package.json            # Root (frontend + dev scripts)
+├── server/package.json     # Backend dependencies & scripts
+├── tailwind.config.js
+└── README.md
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
+## Environment Variables
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Create a `.env` file (usually in the `server` folder) with:
 
-### Making a Progressive Web App
+```env
+PORT=3000                           # or any free port
+HOST=<your_mongodb_connection_uri>  # MongoDB URI
+JWT_SECRET=<your_jwt_secret>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+FRONTEND_URL=http://localhost:3000  # React dev server URL
 
-### Advanced Configuration
+Cloudname=<your_cloudinary_cloud_name>
+CLOUDINARY_API_KEY=<your_cloudinary_api_key>
+CLOUDINARY_API_SECRET=<your_cloudinary_api_secret>
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+NODE_ENV=development
+```
 
-### Deployment
+For the frontend, create a `.env` file in the project root with:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```env
+REACT_APP_API_URL=http://localhost:3000/api/v1
+```
 
-### `npm run build` fails to minify
+Make sure:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- `REACT_APP_API_URL` points to the backend URL (with `/api/v1` prefix).
+- `FRONTEND_URL` matches where the frontend is actually running (for CORS).
 
-# full_bolg_app
+---
+
+## Running the App
+
+### Development
+
+From the project root:
+
+```bash
+# install dependencies
+npm install
+
+# install backend dependencies
+cd server
+npm install
+cd ..
+
+# run both client & server
+npm run dev
+```
+
+Or run separately:
+
+```bash
+# frontend only
+npm start
+
+# backend only
+cd server
+npm run dev
+```
+
+### Production Build
+
+```bash
+npm run build
+```
+
+This creates an optimized production build of the React app in the `build/` folder.
+
+To run the backend in production:
+
+```bash
+cd server
+npm start
+```
+
+---
+
+## Frontend Routes
+
+Defined in `src/App.js`:
+
+- `/` – Home page (all posts)
+- `/deshboard` – Dashboard page
+- `/signup` – User registration
+- `/login` – User login
+- `/post/:id` – Post detail page
+- `/create` – Create new post
+
+---
+
+## API Overview
+
+All backend routes are prefixed with `/api/v1` (configured in `server/server.js`):
+
+- **Users**: `/api/v1/users`
+- **Posts**: `/api/v1/posts`
+- **Comments**: `/api/v1/comments`
+- **Likes**: `/api/v1/likes`
+
+Check `server/routes/*.js` and `server/controller/*.js` for exact handlers.
+
+---
+
+## Deployment
+
+You can deploy:
+
+- **Frontend** – using the `build/` folder on platforms like Vercel or Netlify.
+- **Backend** – on platforms like Render, Railway, or Vercel (there is a `vercel.json` under `server/`).
+
+Remember to:
+
+- Set all necessary environment variables on the hosting provider.
+- Update `REACT_APP_API_URL` in the frontend to point to the deployed backend.
+- Update `FRONTEND_URL` for the backend to point to the deployed frontend URL.
+
+---
+
+## License
+
+This project is intended for learning and demonstration.  
+Feel free to adapt and extend it for your own use.
