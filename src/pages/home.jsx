@@ -9,10 +9,10 @@ export default function HomePage() {
         <div className="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="h-8 w-8 rounded-lg bg-indigo-500 flex items-center justify-center text-sm font-bold">
-              B
+              BH
             </span>
             <span className="text-sm font-semibold tracking-tight">
-              DevBlog
+              BlogHubb
             </span>
           </div>
           <div className="flex items-center gap-3 text-xs">
